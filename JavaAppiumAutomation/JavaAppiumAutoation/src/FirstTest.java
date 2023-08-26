@@ -1,9 +1,14 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 
@@ -29,7 +34,25 @@ public class FirstTest {
         driver.quit();
     }
     @Test
-    public void firstTest(){
-        System.out.println("First test run");
+    public void testInputFieldContainsTextSearchWikipedia(){
+        assertElementHasText(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Search Wikipedia",
+                "Field for text input does not have text 'Search Wikipedia'");
+
+
+    }
+    private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(by));
+    }
+    private void assertElementHasText(By by, String expected_text, String error_message) {
+        WebElement element = waitForElementPresent(by,"Element not found", 5);
+        String actual_text = element.getText();
+        Assert.assertEquals(error_message, expected_text, actual_text );
+
     }
 }
+
+
+
