@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -72,6 +73,34 @@ public class FirstTest {
         );
 
     }
+    @Test
+    public void testCheckEverySearchResultContainsSearchString(){
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find Search Wikipedia input",
+                5
+        );
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search…')]"),
+                "Java",
+                "Cannot find Search... locator",
+                5
+        );
+        driver.hideKeyboard();
+
+        List<WebElement> list = driver.findElements(By.id("org.wikipedia:id/page_list_item_title"));
+
+//        for (WebElement element:list
+//             ) {
+//            System.out.println(element.getText());
+//
+//        }
+        for (WebElement element:list
+             ) {assertElementContainsText(By.id("org.wikipedia:id/page_list_item_title"), "Java", "Search result title does not contain text 'Java'" );
+
+        }
+
+    }
     private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         wait.withMessage(error_message + "\n");
@@ -104,6 +133,12 @@ public class FirstTest {
         return wait.until(
                 ExpectedConditions.invisibilityOfElementLocated(by)
         );
+
+    }
+    private void assertElementContainsText(By by, String expected_text, String error_message) {
+        WebElement element = waitForElementPresent(by,"Element not found", 5);
+        String actual_text = element.getText().toLowerCase();
+        Assert.assertTrue(error_message, actual_text.contains(expected_text.toLowerCase()) );
 
     }
 }
