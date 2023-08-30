@@ -22,7 +22,7 @@ public class FirstTest {
 
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "Pixel_XL_API_31");
-        capabilities.setCapability("platformVersion", "12.0");
+        capabilities.setCapability("platformVersion", "8.0");
         capabilities.setCapability("appium:automationName", "UiAutomator2");
         capabilities.setCapability("appPackage", "org.wikipedia");
         capabilities.setCapability("appActivity", "org.wikipedia.main.MainActivity");
@@ -36,6 +36,8 @@ public class FirstTest {
     }
     @Test
     public void testInputFieldContainsTextSearchWikipedia(){
+        WebElement skip_button = driver.findElement(By.id("org.wikipedia:id/fragment_onboarding_skip_button"));
+        skip_button.click();
         assertElementHasText(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Search Wikipedia",
                 "Field for text input does not have text 'Search Wikipedia'");
 
