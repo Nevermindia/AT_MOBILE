@@ -1,5 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,10 +23,11 @@ public class FirstTest {
 
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "Pixel_XL_API_31");
-        capabilities.setCapability("platformVersion", "8.0");
+        capabilities.setCapability("platformVersion", "12.0");
         capabilities.setCapability("appium:automationName", "UiAutomator2");
         capabilities.setCapability("appPackage", "org.wikipedia");
-        capabilities.setCapability("appActivity", "org.wikipedia.main.MainActivity");
+        capabilities.setCapability("appActivity", ".onboarding.InitialOnboardingActivity");
+
         capabilities.setCapability("appium:app", "C:\\Users\\bsc-apetkevich\\GIT_HUB\\automation_testing\\JavaAppiumAutomation\\JavaAppiumAutoation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://localhost:4723/"), capabilities);
@@ -36,8 +38,7 @@ public class FirstTest {
     }
     @Test
     public void testInputFieldContainsTextSearchWikipedia(){
-        WebElement skip_button = driver.findElement(By.id("org.wikipedia:id/fragment_onboarding_skip_button"));
-        skip_button.click();
+        waitForElementAndClick(By.id("org.wikipedia:id/fragment_onboarding_skip_button"), "Cannot find skip button", 5);
         assertElementHasText(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Search Wikipedia",
                 "Field for text input does not have text 'Search Wikipedia'");
 
@@ -51,9 +52,9 @@ public class FirstTest {
                 5
         );
         waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search…')]"),
+                By.id("org.wikipedia:id/search_src_text"),
                 "Java",
-                "Cannot find Search... locator",
+                "Cannot find Search Wikipedia locator",
                 5
         );
         waitForElementPresent(
@@ -83,7 +84,7 @@ public class FirstTest {
                 5
         );
         waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search…')]"),
+                By.id("org.wikipedia:id/search_src_text"),
                 "Java",
                 "Cannot find Search... locator",
                 5
