@@ -25,12 +25,13 @@ public class FirstTest {
         capabilities.setCapability("deviceName", "Pixel_XL_API_31");
         capabilities.setCapability("platformVersion", "12.0");
         capabilities.setCapability("appium:automationName", "UiAutomator2");
-        capabilities.setCapability("appPackage", "org.wikipedia");
-        capabilities.setCapability("appActivity", ".onboarding.InitialOnboardingActivity");
+        capabilities.setCapability("appium:appPackage", "org.wikipedia");
+        capabilities.setCapability("appium:appActivity", "org.wikipedia.main.MainActivity");
 
         capabilities.setCapability("appium:app", "C:\\Users\\bsc-apetkevich\\GIT_HUB\\automation_testing\\JavaAppiumAutomation\\JavaAppiumAutoation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://localhost:4723/"), capabilities);
+        waitForElementAndClick(By.id("org.wikipedia:id/fragment_onboarding_skip_button"), "Cannot find skip button", 5);
     }
     @After
     public void tearDown(){
@@ -38,7 +39,6 @@ public class FirstTest {
     }
     @Test
     public void testInputFieldContainsTextSearchWikipedia(){
-        waitForElementAndClick(By.id("org.wikipedia:id/fragment_onboarding_skip_button"), "Cannot find skip button", 5);
         assertElementHasText(By.xpath("//*[contains(@text, 'Search Wikipedia')]"), "Search Wikipedia",
                 "Field for text input does not have text 'Search Wikipedia'");
 
