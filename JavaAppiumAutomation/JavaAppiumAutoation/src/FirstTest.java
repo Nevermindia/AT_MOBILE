@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -209,9 +210,31 @@ public class FirstTest {
                 "Article doesn't have title 'JavaScript'"
         );
 
+    }
+    @Test
+    public void testCheckIfArticleHasTitle(){
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find Search Wikipedia input",
+                5
+        );
+        String article_search = "Java";
+        waitForElementAndSendKeys(
+                By.id("org.wikipedia:id/search_src_text"),
+                article_search,
+                "Cannot find Search Wikipedia locator",
+                5
+        );
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='Object-oriented programming language']"),
+                "Cannot find locator for text Object-oriented programming language",
+                5
 
-
-
+        );
+        assertElementPresent(
+                By.xpath("//*[@text='Java (programming language)' and @class='android.view.View']"),
+                "Cannot find title of the article"
+        );
 
 
 
@@ -276,7 +299,15 @@ public class FirstTest {
                 .perform();
 
     }
-}
+    private void assertElementPresent(By by, String error_message){
+        int amount_of_elements = driver.findElements(by).size();
+        Assert.assertTrue(
+                error_message +"\n" + "Element " + by.toString() + " supposed to be present",
+                amount_of_elements==1);
+    }
+
+    }
+
 
 
 
