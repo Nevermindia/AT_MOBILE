@@ -46,5 +46,21 @@ public class SearchTests extends CoreTestCase {
         }
 
     }
+    @Test
+    public void testCheckSearchResultsHaveArticlesByTitleAndDescription(){
+        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        String search_line="Twisted metal",
+                first_article_title="Twisted Metal",
+                first_article_description="Video game series",
+                second_article_title="Twisted Metal (TV series)",
+                second_article_description="2023 television series",
+                third_article_title="Twisted Metal (2012 video game)",
+                third_article_description="2012 video game";
+        searchPageObject.initSearch();
+        searchPageObject.inputSearchLine(search_line);
+        searchPageObject.waitForElementByTitleAndDescription(first_article_title, first_article_description);
+        searchPageObject.waitForElementByTitleAndDescription(second_article_title, second_article_description);
+        searchPageObject.waitForElementByTitleAndDescription(third_article_title,third_article_description);
+    }
 
 }
