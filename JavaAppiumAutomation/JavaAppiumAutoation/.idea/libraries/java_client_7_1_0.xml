@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="java-client-7.1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Libs/java-client-7.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/javax.websocket-api-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/selenium-server-standalone-3.14.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

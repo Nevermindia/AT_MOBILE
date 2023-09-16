@@ -2,6 +2,7 @@ package lib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 import junit.framework.TestCase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -9,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 
 public class CoreTestCase extends TestCase {
+
     protected AppiumDriver driver;
     private static String AppiumURL = "http://localhost:4723/";
 
