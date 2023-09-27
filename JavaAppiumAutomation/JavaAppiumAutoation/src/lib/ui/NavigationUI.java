@@ -3,10 +3,10 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 
-public class NavigationUI extends MainPageObject{
-    private static final String
-            RETURN_BACK_BUTTON="xpath://*[@content-desc='Navigate up']",
-            VIEW_LIST_BUTTON="xpath://*[@text='View list']";
+abstract public class NavigationUI extends MainPageObject{
+    protected static String
+            RETURN_BACK_BUTTON,
+            VIEW_LIST_BUTTON;
 
     public NavigationUI(AppiumDriver driver) {
         super(driver);

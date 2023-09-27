@@ -4,15 +4,15 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class ArticlePageObject extends MainPageObject{
-    private static final String
-            SAVE_BUTTON="id:org.wikipedia:id/page_save",
-            ADD_TO_LIST_BUTTON="xpath://*[@text='Add to list']",
-            MY_LIST_NANE_INPUT="id:org.wikipedia:id/text_input",
-            MY_LIST_OK_BUTTON = "xpath://*[@text='OK']",
-            ARTICLE_TITLE_TPL ="xpath://*[@text='{TITLE}' and @class='android.view.View']",
-            ADD_TO_ANOTHER_LIST="xpath://*[@text='Add to another reading list']",
-            FOLDER_ELEMENT_TPL ="xpath://*[@text='{FOLDER_NAME}']";
+abstract public class ArticlePageObject extends MainPageObject{
+    protected static String
+            SAVE_BUTTON,
+            ADD_TO_LIST_BUTTON,
+            MY_LIST_NANE_INPUT,
+            MY_LIST_OK_BUTTON,
+            ARTICLE_TITLE_TPL,
+            ADD_TO_ANOTHER_LIST,
+            FOLDER_ELEMENT_TPL;
     public ArticlePageObject(AppiumDriver driver) {
         super(driver);
     }

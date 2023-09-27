@@ -2,6 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,14 +12,14 @@ import java.util.List;
 public class SearchTests extends CoreTestCase {
     @Test
     public void testInputFieldContainsTextSearchWikipedia(){
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.assertInputElementHasText("Search Wikipedia");
 
 
     }
     @Test
     public void testCheckSearchResultIsNotPresent(){
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearch();
         searchPageObject.inputSearchLine("Java");
         searchPageObject.waitForSearchResultsPresent();
@@ -28,7 +29,7 @@ public class SearchTests extends CoreTestCase {
     }
     @Test
     public void testCheckEverySearchResultContainsSearchString(){
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearch();
         searchPageObject.inputSearchLine("Java");
         driver.hideKeyboard();
@@ -48,7 +49,7 @@ public class SearchTests extends CoreTestCase {
     }
     @Test
     public void testCheckSearchResultsHaveArticlesByTitleAndDescription(){
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         String search_line="Twisted metal",
                 first_article_title="Twisted Metal",
                 first_article_description="Video game series",
