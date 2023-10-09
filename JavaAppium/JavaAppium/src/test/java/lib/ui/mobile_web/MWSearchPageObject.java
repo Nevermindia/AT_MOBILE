@@ -10,8 +10,7 @@ public class MWSearchPageObject extends SearchPageObject {
         SEARCH_RESULT="css:ul.page-list>li.page-summary";
         SEARCH_RESULT_BY_SUBSTRING_TPL ="xpath://div[contains(@class, 'wikidata-description')][contains(text(), '{SUBSTRING}')]";
         SEARCH_CANCEL_BUTTON="css:button.cancel";
-        //не исправлен один локатор ------>
-        ARTICLE_ELEMENT="xpath://*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']/../*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='{DESCRIPTION}']/..";
+        ARTICLE_ELEMENT="xpath://li[@title='{TITLE}']//div[@class='wikidata-description'='{DESCRIPTION}']";
     }
     public MWSearchPageObject(RemoteWebDriver driver) {
         super(driver);
