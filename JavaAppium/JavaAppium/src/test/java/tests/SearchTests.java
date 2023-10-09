@@ -1,5 +1,6 @@
 package tests;
 
+import io.appium.java_client.AppiumDriver;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
@@ -18,11 +19,12 @@ public class SearchTests extends CoreTestCase {
 
     }
     @Test
-    public void testCheckSearchResultIsNotPresent(){
+    public void testCheckSearchResultIsNotPresent() throws InterruptedException {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearch();
         searchPageObject.inputSearchLine("Java");
         searchPageObject.waitForSearchResultsPresent();
+        searchPageObject.waitForCancelButtonToAppear();
         searchPageObject.clickCancelSearch();
         searchPageObject.waitForSearchResultsNotPresent();
 
@@ -32,7 +34,9 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearch();
         searchPageObject.inputSearchLine("Java");
-        driver.hideKeyboard();
+        if (driver instanceof AppiumDriver)
+        {
+            ((AppiumDriver)driver).hideKeyboard();}
 
         List<WebElement> list = driver.findElements(By.id("org.wikipedia:id/page_list_item_title"));
 

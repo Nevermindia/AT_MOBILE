@@ -1,34 +1,28 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.URL;
+import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
 
-    protected AppiumDriver driver;
-    private static String AppiumURL = "http://localhost:4723/";
+    protected RemoteWebDriver driver;
+
+    protected Platform Platform;
 
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "Pixel_XL_API_31");
-        capabilities.setCapability("platformVersion", "12.0");
-        capabilities.setCapability("appium:automationName", "UiAutomator2");
-        capabilities.setCapability("appium:appPackage", "org.wikipedia");
-        capabilities.setCapability("appium:appActivity", "org.wikipedia.main.MainActivity");
-        capabilities.setCapability("appium:app", "C:\\Users\\bsc-apetkevich\\GIT_HUB\\automation_testing\\JavaAppiumAutomation\\JavaAppiumAutoation\\apks\\org.wikipedia.apk");
-
-        driver = new AndroidDriver(new URL(AppiumURL), capabilities);
-        driver.findElement(By.id("org.wikipedia:id/fragment_onboarding_skip_button")).click();
+        this.Platform = lib.Platform.getInstance();
+        driver = this.Platform.getDriver();
+        this.rotateScreenPortraits();
+        this.pressSkipButton();
+        this.openWikiWebPageForMobileWeb();
     }
 
 
@@ -39,6 +33,41 @@ public class CoreTestCase extends TestCase {
         super.tearDown();
     }
 
+    protected void rotateScreenPortraits(){
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.PORTRAIT);
+        }
+        else System.out.println("Method does nothing for platform ");
+    }
+    protected void pressSkipButton(){
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.findElement(By.id("org.wikipedia:id/fragment_onboarding_skip_button")).click();
+        }
+        else System.out.println("Method does nothing for platform ");
+    }
+    protected void rotateScreenLandscape(){
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.LANDSCAPE);
+        }
+        else System.out.println("Method does nothing for platform ");
 
+    }
 
+    protected void backgroundApp(int seconds){
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.runAppInBackground(Duration.ofSeconds(seconds));;
+        }
+        else System.out.println("Method does nothing for platform ");
+    }
+    protected void openWikiWebPageForMobileWeb(){
+        if (Platform.isMW()){
+            driver.get("https://en.m.wikipedia.org");
+        }
+        else System.out.println("Method does nothing for platform ");
+
+    }
 }

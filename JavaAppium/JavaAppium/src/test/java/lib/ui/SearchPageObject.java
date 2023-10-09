@@ -1,7 +1,6 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 abstract public class SearchPageObject extends MainPageObject{
@@ -13,7 +12,7 @@ abstract public class SearchPageObject extends MainPageObject{
             SEARCH_RESULT_BY_SUBSTRING_TPL,
             SEARCH_CANCEL_BUTTON,
             ARTICLE_ELEMENT;
-    public SearchPageObject(AppiumDriver driver){
+    public SearchPageObject(RemoteWebDriver driver){
         super(driver);
     }
     /*Templates methods */
@@ -26,7 +25,7 @@ abstract public class SearchPageObject extends MainPageObject{
     public void initSearch(){
         this.waitForElementPresent(
                 SEARCH_INIT_ELEMENT,
-                "element to init search is not present",
+                "element to init search is not present" + SEARCH_INIT_ELEMENT,
                 5);
         this.waitForElementAndClick(
                 SEARCH_INIT_ELEMENT,
@@ -51,6 +50,13 @@ abstract public class SearchPageObject extends MainPageObject{
         this.waitForElementPresent(
                 SEARCH_RESULT,
                 "No search results found",
+                5
+        );
+    }
+    public void waitForCancelButtonToAppear(){
+        this.waitForElementPresent(
+                SEARCH_CANCEL_BUTTON,
+                "Search button is not present",
                 5
         );
     }
