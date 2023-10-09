@@ -34,10 +34,7 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearch();
         searchPageObject.inputSearchLine("Java");
-        if (driver instanceof AppiumDriver)
-        {
-            ((AppiumDriver)driver).hideKeyboard();}
-
+        ((AppiumDriver)driver).hideKeyboard();
         List<WebElement> list = driver.findElements(By.id("org.wikipedia:id/page_list_item_title"));
 
 //        for (WebElement element:list
