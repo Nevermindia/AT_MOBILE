@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import lib.CoreTestCase;
 import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
@@ -7,12 +8,19 @@ import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
+@Epic("Tests for my list (watchlist)")
 public class MyListsTests extends CoreTestCase {
     private final static String login = "Stacia31415";
     private final static String password = "Stacia314159";
 
     @Test
+    @Features(value = {@Feature(value="Search"), @Feature(value = "Article"), @Feature(value = "My list")})
+    @DisplayName("Save 2 articles to my list and delete one of them")
+    @Description("We save 2 article to my list (watchlist), delete 1 of them and check that remaining article is second")
+    @Step("Starting test testSaveTwoArticlesAndDeleteOne")
+    @Severity(value=SeverityLevel.NORMAL)
     public void testSaveTwoArticlesAndDeleteOne() {
         NavigationUI navigationUI = NavigationUIFactory.get(driver);
         if (Platform.isMW()) {

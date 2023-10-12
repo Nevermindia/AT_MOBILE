@@ -9,7 +9,7 @@ public class MWSearchPageObject extends SearchPageObject {
         SEARCH_INPUT="css:form>input[type='search']";
         SEARCH_RESULT="css:ul.page-list>li.page-summary";
         SEARCH_RESULT_BY_SUBSTRING_TPL ="xpath://div[contains(@class, 'wikidata-description')][contains(text(), '{SUBSTRING}')]";
-        SEARCH_CANCEL_BUTTON="css:button.cancel";
+        SEARCH_CANCEL_BUTTON="css:button.clear";
         ARTICLE_ELEMENT="xpath://li[@title='{TITLE}']//div[@class='wikidata-description'='{DESCRIPTION}']";
     }
     public MWSearchPageObject(RemoteWebDriver driver) {

@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -15,6 +16,7 @@ abstract public class NavigationUI extends MainPageObject {
         super(driver);
     }
 
+    @Step("Returning from article to the search results")
     public void returnToSearchResultsFromTheArticle() {
         this.waitForElementAndClick(
                 RETURN_BACK_BUTTON,
@@ -23,6 +25,7 @@ abstract public class NavigationUI extends MainPageObject {
         );
     }
 
+    @Step("Returning to the Main page")
     public void returnToTheMainPage() {
         this.waitForElementAndClick(
                 WIKIPEDIA_ELEMENT,
@@ -31,6 +34,7 @@ abstract public class NavigationUI extends MainPageObject {
         );
     }
 
+    @Step("Clicking by view list button")
     public void clickByViewListButton() {
         if (Platform.getInstance().isMW()) {
             this.tryClickElementWithFewAttempts(
@@ -47,6 +51,8 @@ abstract public class NavigationUI extends MainPageObject {
         }
     }
 
+
+    @Step("Opening navigation bar")
     public void openNavigation() {
         if (Platform.getInstance().isMW()) {
             this.waitForElementAndClick(
@@ -57,6 +63,7 @@ abstract public class NavigationUI extends MainPageObject {
 
     }
 
+    @Step("Clicking login button in navigation bar")
     public void clickLogin() {
         if (Platform.getInstance().isMW()) {
             this.tryClickElementWithFewAttempts(

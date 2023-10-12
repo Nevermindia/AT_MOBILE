@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
@@ -22,6 +23,7 @@ abstract public class SearchPageObject extends MainPageObject{
     public static String getResultArticleXpath(String title, String description){
         return ARTICLE_ELEMENT.replace("{TITLE}",title).replace("{DESCRIPTION}", description);}
     /*Templates methods */
+    @Step("Clicking at the input search field")
     public void initSearch(){
         this.waitForElementPresent(
                 SEARCH_INIT_ELEMENT,
@@ -29,10 +31,11 @@ abstract public class SearchPageObject extends MainPageObject{
                 5);
         this.waitForElementAndClick(
                 SEARCH_INIT_ELEMENT,
-                "Cannot find and click seach init element",
+                "Cannot find and click search init element",
                 5
         );
     }
+    @Step("Initializing the search field with line '{searchLine}'")
     public void inputSearchLine(String searchLine){
         this.waitForElementPresent(
                 SEARCH_INPUT,
@@ -44,8 +47,10 @@ abstract public class SearchPageObject extends MainPageObject{
                 "Cannot find search input and send keys",
                 5
         );
+        screenshot(this.takeScreenshot("init_search"));
 
     }
+    @Step("Waiting for search results to appear")
     public void waitForSearchResultsPresent(){
         this.waitForElementPresent(
                 SEARCH_RESULT,
@@ -53,6 +58,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Waiting for button to cancel search result")
     public void waitForCancelButtonToAppear(){
         this.waitForElementPresent(
                 SEARCH_CANCEL_BUTTON,
@@ -60,6 +66,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Waiting for search result to disappear")
     public void waitForSearchResultsNotPresent(){
         this.waitForElementNotPresent(
                 SEARCH_RESULT,
@@ -68,6 +75,7 @@ abstract public class SearchPageObject extends MainPageObject{
         );
     }
 
+    @Step("Waiting for search result and selecting an article by substring '{substring}' in article title")
     public void clickByArticleWithSubstring(String substring){
         String search_result_xpath = getResultSearchElement(substring);
         this.waitForElementAndClick(
@@ -76,6 +84,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 10
         );
     }
+    @Step("Waiting for cancel search button and clicking by it to cancel search results")
     public void clickCancelSearch(){
         this.waitForElementAndClick(
                 SEARCH_CANCEL_BUTTON,
@@ -83,16 +92,19 @@ abstract public class SearchPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Making sure search result contains string '{search_line}'")
     public void assertEverySearchResultContainsSearchString(String search_line){
         this.assertElementContainsText(SEARCH_RESULT,
                 search_line,
                 "Search result title does not contain text "+search_line );
 
     }
+    @Step("Making sure input filed element has '{expected_text}'")
     public void assertInputElementHasText(String expected_text){
         this.assertElementHasText("xpath://*[contains(@text, 'Search Wikipedia')]", expected_text,
                 "Field for text input does not have text" + expected_text);
     }
+    @Step("Waiting for element with certain '{title}' and '{description}'")
     public void waitForElementByTitleAndDescription(String title, String description){
         String article_xpath = getResultArticleXpath(title,description);
         this.waitForElementPresent(

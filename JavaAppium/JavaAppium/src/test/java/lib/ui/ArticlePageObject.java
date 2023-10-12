@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -13,8 +14,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
             ARTICLE_TITLE_TPL,
             ADD_TO_ANOTHER_LIST,
-            FOLDER_ELEMENT_TPL,
-            SEARCH_BUTTON;
+            FOLDER_ELEMENT_TPL;
     public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
@@ -30,6 +30,7 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     }
     /*Templates methods */
+    @Step("Waiting for title with text '{title_text}' to appear")
     public WebElement waitForTitleElementPresent(String title_text){
         String article_title_xpath = getArticleTitleXpath(title_text);
         return this.waitForElementPresent(
@@ -37,6 +38,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 "Cannot find article title",
                 15);
     }
+    @Step("Creating new folder with name '{name_of_folder}' and saving article to it")
     public void saveArticleToNewFolder(String name_of_folder){
 
         this.waitForElementAndClick(
@@ -58,6 +60,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Saving article to existing folder with name '{name_of_folder}'")
     public void saveArticleToExistingFolder(String name_of_folder){
         this.waitForElementAndClick(
                 SAVE_BUTTON,
@@ -79,7 +82,8 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5
         );
     }
-    public void removeArticleFromSavedIfItAddes(){
+    @Step("Check if article already saved to watchlist and if it is - removing it")
+    public void removeArticleFromSavedIfItIsAdded(){
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)){
             this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
                     "Cannot click remove button",
@@ -92,6 +96,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
 
     }
+    @Step("Making sure title has title '{article_title}'")
     public void assertArticleHasTitle(String article_title){
         String article_title_xpath = getArticleTitleXpath(article_title);
         this.assertElementPresent(
@@ -99,6 +104,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 "Cannot find title of the article"
         );
     }
+    @Step ("Making sure tile of the article is '{expected_article_title}'")
     public void assertTitleHasText(String expected_article_title){
         String article_title_xpath = getArticleTitleXpath(expected_article_title);
         this.assertElementHasText(
@@ -107,9 +113,10 @@ abstract public class ArticlePageObject extends MainPageObject{
                 "Article doesn't have title "+expected_article_title
         );
     }
+    @Step("Waiting for save button and clicking by it")
     public void waitForSaveButtonAndClick(){
         if (Platform.getInstance().isMW()){
-            this.removeArticleFromSavedIfItAddes();
+            this.removeArticleFromSavedIfItIsAdded();
         }
         this.waitForElementAndClick(
                 SAVE_BUTTON,

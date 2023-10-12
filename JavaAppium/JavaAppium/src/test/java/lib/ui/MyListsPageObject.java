@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -29,6 +30,7 @@ abstract public class MyListsPageObject extends MainPageObject{
     }
     /*Templates methods */
 
+    @Step("Opennig folder with name '{name_of_folder}'")
     public void openFolderByName(String name_of_folder){
         String folder_name_xpath=getFolderXpathByName(name_of_folder);
         this.waitForElementAndClick(
@@ -37,6 +39,7 @@ abstract public class MyListsPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Waiting for article with title '{article_title}' to appear")
     public void waitForArticleToAppear(String article_title){
         String article_title_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementPresent(
@@ -45,6 +48,7 @@ abstract public class MyListsPageObject extends MainPageObject{
                 15
         );
     }
+    @Step("Waiting for article with title '{article_title}' to disappear")
     public void waitForArticleToDisappear(String article_title){
         String article_title_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementNotPresent(
@@ -53,6 +57,7 @@ abstract public class MyListsPageObject extends MainPageObject{
                 15
         );
     }
+    @Step("Deleting article with title '{article_title}' from my list (watchlist)")
     public void swipeOrClickByArticleToDelete(String article_title){
         if (Platform.getInstance().isAndroid()) {
             this.waitForArticleToAppear(article_title);
@@ -73,6 +78,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         }
 
     }
+    @Step("Waiting for saved article with title '{article_title}' and selecting it")
     public void waitForSavedArticleAndClick(String article_title){
         String article_title_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementAndClick(
@@ -82,6 +88,7 @@ abstract public class MyListsPageObject extends MainPageObject{
 
         );
     }
+    @Step("Making sure article has title '{expected_article_title}'")
     public void assertTitleHasText(String expected_article_title){
         String article_title_xpath = getSavedArticleXpathByTitle(expected_article_title);
         this.assertElementHasText(
