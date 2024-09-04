@@ -3,6 +3,7 @@ package lib.ui.factories;
 import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.android.AndroidSearchPageObject;
+import lib.ui.ios.IosSearchPageObject;
 import lib.ui.mobile_web.MWSearchPageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -11,10 +12,9 @@ public class SearchPageObjectFactory {
         if (Platform.getInstance().isAndroid()) {
             return new AndroidSearchPageObject(driver);
 
-        } else
-            return new MWSearchPageObject(driver);
-
-
+        } else if (Platform.getInstance().isIos()) {
+            return new IosSearchPageObject(driver);
+        } else return new MWSearchPageObject(driver);
     }
 }
 

@@ -9,6 +9,8 @@ import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 
 @Epic("Tests for my list (watchlist)")
 public class MyListsTests extends CoreTestCase {
@@ -16,11 +18,15 @@ public class MyListsTests extends CoreTestCase {
     private final static String password = "Stacia314159";
 
     @Test
-    @Features(value = {@Feature(value="Search"), @Feature(value = "Article"), @Feature(value = "My list")})
+    @Tags({
+            @Tag("android"),
+            @Tag("mobile_web")
+    })
+    @Features(value = {@Feature(value = "Search"), @Feature(value = "Article"), @Feature(value = "My list")})
     @DisplayName("Save 2 articles to my list and delete one of them")
     @Description("We save 2 article to my list (watchlist), delete 1 of them and check that remaining article is second")
     @Step("Starting test testSaveTwoArticlesAndDeleteOne")
-    @Severity(value=SeverityLevel.NORMAL)
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticlesAndDeleteOne() {
         NavigationUI navigationUI = NavigationUIFactory.get(driver);
         if (Platform.isMW()) {
@@ -61,8 +67,8 @@ public class MyListsTests extends CoreTestCase {
             MyListsPageObject myListsPageObject = MyListsPageObjectFactory.get(driver);
             myListsPageObject.openFolderByName(name_of_folder);
             myListsPageObject.swipeOrClickByArticleToDelete("Java (programming language)");
-            myListsPageObject.waitForSavedArticleAndClick("High-level programming language");
-            articlePageObject.assertTitleHasText("JavaScript");
+            myListsPageObject.waitForSavedArticleAndClick("JavaScript");
+            articlePageObject.assertTitleHasContentDesc("JavaScript");
         } else {
             articlePageObject.waitForSaveButtonAndClick();
             navigationUI.openNavigation();
@@ -77,7 +83,6 @@ public class MyListsTests extends CoreTestCase {
                 myListsPageObject.waitForSavedArticleAndClick("High-level programming language");
 
             }
-
         }
     }
 }

@@ -51,7 +51,6 @@ abstract public class NavigationUI extends MainPageObject {
         }
     }
 
-
     @Step("Opening navigation bar")
     public void openNavigation() {
         if (Platform.getInstance().isMW()) {
@@ -60,7 +59,6 @@ abstract public class NavigationUI extends MainPageObject {
                     "Cannot click navigation button",
                     5);
         }
-
     }
 
     @Step("Clicking login button in navigation bar")
